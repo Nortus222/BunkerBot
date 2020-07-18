@@ -14,7 +14,7 @@ namespace BunkerBot2.Commands
         {
         }
 
-        public override string Name { get; } = "Help";
+        public override string Name { get; } = "/host";
 
         public override bool Contains(Message message)
         {
