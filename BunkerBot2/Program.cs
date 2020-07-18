@@ -4,11 +4,14 @@ using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using System.Collections.Generic;
+
 
 namespace Bot1
 {
     class Program
     {
+        private static List<User> users = new List<User>();
         private static TelegramBotClient client;
         static void Main(string[] args)
         {
@@ -34,7 +37,17 @@ namespace Bot1
                 // }
                 if(message.Text == "/start")
                 {
-                    await client.SendTextMessageAsync(message.Chat.Id, "Welcome");
+                    var keyboard  = new Telegram.Bot.Types.ReplyMarkups.InlineKeyboardMarkup(
+                        new Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton[][]
+                        {
+                            new[]
+                            {
+                                new Telegram.Bot.Types.InlineKeyboardButton("/help",callback1),
+                                new Telegram.Bot.Types.InlineKeyboardButton("/start",callback2),
+                            },
+                        }
+                    );
+                    await client.SendTextMessageAsync(message.Chat.Id, "Choose option", false, false, 0, keyboard, Telegram.Bot.Types.Enums.ParseMode.Default);
                 }
             }
         } 
