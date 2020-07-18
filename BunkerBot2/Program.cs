@@ -5,6 +5,8 @@ using Telegram.Bot.Args;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using System.Collections.Generic;
+using Telegram.Bot.Types.ReplyMarkups;
+
 
 
 namespace Bot1
@@ -42,13 +44,13 @@ namespace Bot1
                         {
                             new[]
                             {
-                                new Telegram.Bot.Types.InlineKeyboardButton("/help",callback1),
-                                new Telegram.Bot.Types.InlineKeyboardButton("/start",callback2),
+                                new InlineKeyboardButton("/help",callback1),
+                                new InlineKeyboardButton("/start",callback2),
+                                
                             },
                         }
                     );
-                    await client.SendTextMessageAsync(message.Chat.Id, "Choose option", false, false, 0, keyboard, Telegram.Bot.Types.Enums.ParseMode.Default);
-                }
+                    await client.SendTextMessageAsync(message.Chat.Id, "Choose option", replyMarkup: keyboard);
             }
         } 
                     
