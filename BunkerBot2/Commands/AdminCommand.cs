@@ -4,6 +4,7 @@ using Telegram.Bot.Args;
 using BunkerBot2.Abstractions;
 using Telegram.Bot.Types;
 using System.Threading.Tasks;
+using Telegram.Bot.Types.Enums;
 
 namespace BunkerBot2.Commands
 {
@@ -17,7 +18,12 @@ namespace BunkerBot2.Commands
 
         public override bool Contains(Message message)
         {
-            throw new NotImplementedException();
+            if (message.Type != MessageType.Text)
+            {
+                return false;
+            }
+
+            return message.Text.Contains(Name); 
         }
 
 
