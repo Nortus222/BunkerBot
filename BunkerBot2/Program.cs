@@ -40,6 +40,19 @@ namespace Bot1
             BunkerUsers.Add(user);
         }
 
+        public static BunkerUser GetUserById(long id)
+        {
+            foreach(BunkerUser user in BunkerUsers)
+            {
+                if(id == user.ChatID)
+                {
+                    return user;
+                }
+            }
+
+            return null;
+        }
+
         public static void  RemoveUser(BunkerUser user)
         {
             BunkerUsers.Remove(user);
@@ -105,6 +118,16 @@ namespace Bot1
         {
 
             var message = e.CallbackQuery.Data;
+
+            foreach(Room room in rooms)
+            {
+                if(room.Host.NickName == message)
+                {
+                    room.AddToRoom(GetUserById(e.CallbackQuery.From.Id));
+                    room.DisplayRoom();
+
+                }
+            }
 
             BunkerUser curUser;
 

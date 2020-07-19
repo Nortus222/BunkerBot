@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System;
 
 namespace BunkerBot2
 {
@@ -10,8 +11,33 @@ namespace BunkerBot2
             players.Add(user);
         }
         private BunkerUser host;
+
         public BunkerUser Host{get {return host;}}
+
         private  List<BunkerUser> players = new List<BunkerUser>();
+
+        public bool AddToRoom(BunkerUser user)
+        {
+            if (players.Contains(user))
+            {
+                return false;
+            }
+            else
+            {
+                this.players.Add(user);
+            }
+
+            return true;
+            
+        }
+
+        public void DisplayRoom()
+        {
+            foreach(BunkerUser user in players)
+            {
+                Console.WriteLine(user.NickName);
+            }
+        }
 
     }
 }
