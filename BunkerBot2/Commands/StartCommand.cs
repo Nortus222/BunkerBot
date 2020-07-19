@@ -16,7 +16,7 @@ namespace BunkerBot2.Commands
 
         public override string Name { get; } = "/start";
 
-        public override async Task Execute(User user, ITelegramBotClient client)
+        public override async Task Execute(BunkerUser user, ITelegramBotClient client)
         {
             var keyboard = new Telegram.Bot.Types.ReplyMarkups.InlineKeyboardMarkup(
                         new Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton[][]

@@ -23,6 +23,12 @@ namespace Bot1
         {
             return BunkerUsers;
         }
+
+        public static void ClearList()
+        {
+            BunkerUsers.Clear();
+            
+        }
         private static TelegramBotClient client;
 
         static void Main(string[] args)
@@ -30,7 +36,6 @@ namespace Bot1
             client = new TelegramBotClient("1111775546:AAEqesvfDbF-UDS48I1OtwAxNprAFvkJ_NI");
             client.OnMessage += BotOnMessageReceived;
             client.OnMessageEdited += BotOnMessageReceived;
-            client.OnMessageEdited += AddBunkerUser;
             client.OnCallbackQuery += BotOnCallbackQueryReceived;
             client.StartReceiving();
             Console.ReadLine();
@@ -49,7 +54,16 @@ namespace Bot1
 
             var message = messageEventArgs.Message;
             var newUser = new BunkerUser(message.From.FirstName,message.Chat.Id);
-            BunkerUsers.Add(newUser);
+            bool exist = false;
+            foreach(var user in BunkerUsers)
+            {
+                if(message.Chat.Id == user.ChatID)
+                {
+                    exist = true;
+                }
+            }
+            if(!exist) BunkerUsers.Add(newUser);
+            
             foreach(var user in BunkerUsers)
             {
                 await client.SendTextMessageAsync(message.Chat.Id,(user.NickName));
@@ -73,11 +87,6 @@ namespace Bot1
 
             }
 
-        }
-
-        private static async void AddBunkerUser(object sender, MessageEventArgs messageEventArgs)
-        {
-            var message = messageEventArgs.Message;
         }
     }
 }
