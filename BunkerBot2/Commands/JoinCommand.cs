@@ -34,7 +34,7 @@ namespace BunkerBot2.Commands
 
             foreach(Room room in roomList)
             {
-                admins[count] = room.GetHost();
+                admins[count] = room.Host;
                 count++;
             }
 

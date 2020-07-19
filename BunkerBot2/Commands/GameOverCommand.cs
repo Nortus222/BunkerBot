@@ -5,7 +5,7 @@ using Telegram.Bot;
 
 namespace BunkerBot2.Commands
 {
-    public class GameOver : TelegramCommand
+    public class GameOverCommand : TelegramCommand
     {
         public override string Name => "/gameover";
 

@@ -14,7 +14,8 @@ namespace BunkerBot2.Service
             new JoinCommand(),
             new HelpCommand(),
             new EndCommand(),
-            new QuitCommand()
+            new QuitCommand(),
+            new GameOverCommand()
         };
 
         public List<TelegramCommand> Get() => commands;

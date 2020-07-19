@@ -25,6 +25,11 @@ namespace Bot1
             return BunkerUsers;
         }
 
+        public static List<Room> GetRooms()
+        {
+            return rooms;
+        }
+
         public static void ClearList()
         {
             BunkerUsers.Clear();
