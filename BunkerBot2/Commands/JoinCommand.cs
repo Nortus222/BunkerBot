@@ -42,7 +42,7 @@ namespace BunkerBot2.Commands
 
             for(int i = 0; i < admins.Length; i++)
             {
-                buttons[i] = InlineKeyboardButton.WithCallbackData($"{admins[i]}", "/connect");
+                buttons[i] = InlineKeyboardButton.WithCallbackData($"{admins[i].NickName}");
             }
 
             var keyboard = new InlineKeyboardMarkup(buttons);
