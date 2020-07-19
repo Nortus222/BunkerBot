@@ -14,5 +14,6 @@
     <Folder Include="Commands\" />
     <Folder Include="Abstractions\" />
     <Folder Include="Service\" />
+    <Folder Include="Lists\" />
   </ItemGroup>
 </Project>
