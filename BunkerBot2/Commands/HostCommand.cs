@@ -8,29 +8,18 @@ using Telegram.Bot.Types.Enums;
 
 namespace BunkerBot2.Commands
 {
-    public class AdminCommand: TelegramCommand
+    public class HostCommand: TelegramCommand
     {
-        public AdminCommand()
+        public HostCommand()
         {
         }
 
         public override string Name { get; } = "/host";
 
-        public override bool Contains(Message message)
-        {
-            if (message.Type != MessageType.Text)
-            {
-                return false;
-            }
-
-            return message.Text.Contains(Name); 
-        }
-
-
         //TODO: is it better to take User instead of Message?
-        public override async Task Execute(Message message, ITelegramBotClient client) 
+        public override async Task Execute(User user, ITelegramBotClient client) 
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

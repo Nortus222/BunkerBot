@@ -16,17 +16,7 @@ namespace BunkerBot2.Commands
 
         public override string Name { get; } = "/start";
 
-        public override bool Contains(Message message)
-        {
-            if (message.Type != MessageType.Text)
-            {
-                return false;
-            }
-           
-            return message.Text.Contains(Name);
-        }
-
-        public override async Task Execute(Message message, ITelegramBotClient client)
+        public override async Task Execute(User user, ITelegramBotClient client)
         {
             var keyboard = new Telegram.Bot.Types.ReplyMarkups.InlineKeyboardMarkup(
                         new Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton[][]
@@ -39,12 +29,13 @@ namespace BunkerBot2.Commands
                             },
                             new[]
                             {
-                                InlineKeyboardButton.WithCallbackData("/host")
+                                InlineKeyboardButton.WithCallbackData("/host"),
+                                InlineKeyboardButton.WithCallbackData("/join")
                             }
                         }
                     ) ;
 
-            await client.SendTextMessageAsync(message.Chat.Id, "Choose option", replyMarkup: keyboard);
+            await client.SendTextMessageAsync(user.ChatID, "Choose option", replyMarkup: keyboard);
         }
     }
 }
