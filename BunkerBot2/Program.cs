@@ -34,6 +34,11 @@ namespace Bot1
             BunkerUsers.Add(user);
         }
 
+        public static void  RemoveUser(BunkerUser user)
+        {
+            BunkerUsers.Remove(user);
+        }
+
         public static bool CheckExistance(BunkerUser user)
         {
             foreach(var us in BunkerUsers)

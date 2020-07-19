@@ -13,7 +13,8 @@ namespace BunkerBot2.Service
             new StartCommand(),
             new JoinCommand(),
             new HelpCommand(),
-            new EndCommand()
+            new EndCommand(),
+            new QuitCommand()
         };
 
         public List<TelegramCommand> Get() => commands;
