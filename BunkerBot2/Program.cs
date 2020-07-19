@@ -19,6 +19,7 @@ namespace Bot1
     class Program
     {
         private static List<BunkerUser> BunkerUsers = new List<BunkerUser>();
+        private static List<Room> rooms = new List<Room>();
         public static List<BunkerUser> Get()
         {
             return BunkerUsers;
@@ -51,14 +52,16 @@ namespace Bot1
             return false;
         }
 
-        private static TelegramBotClient client;
+        public static void CreateRoom(BunkerUser user)
+        {
+            rooms.Add(new Room(user));
+        }
 
-        private static CommandService commands = new CommandService();
+        private static TelegramBotClient client;
 
         static void Main(string[] args)
         {
             client = new TelegramBotClient("1111775546:AAEqesvfDbF-UDS48I1OtwAxNprAFvkJ_NI");
-            
             client.OnMessage += BotOnMessageReceived;
             client.OnMessageEdited += BotOnMessageReceived;
             client.OnCallbackQuery += BotOnCallbackQueryReceived;
@@ -69,40 +72,13 @@ namespace Bot1
 
         private static async void BotOnCallbackQueryReceived(object sender, CallbackQueryEventArgs e)
         {
-            var message = e.CallbackQuery.Data;
-
-            Console.WriteLine(message);
-            BunkerUser curUser;
-
-            foreach(BunkerUser currentUser in BunkerUsers)
-            {
-                Console.WriteLine("111");
-                Console.WriteLine(currentUser.ChatID);
-                Console.WriteLine(e.CallbackQuery.From.Id);
-                if (currentUser.EqualID(e.CallbackQuery.From.Id))
-                {
-                    curUser = currentUser;
-                    foreach (TelegramCommand command in commands.Get())
-                    {
-                        Console.WriteLine("command");
-                        if (command.Contains(message))
-                        {
-
-                            await command.Execute(curUser, client);
-                            break;
-                        }
-
-                    }
-                    break;
-                }
-            }
-
-            
-
+            await client.SendTextMessageAsync(e.CallbackQuery.From.Id, $"{e.CallbackQuery.From.FirstName} pressed {e.CallbackQuery.Data}");
         }
 
         private static async void BotOnMessageReceived(object sender, MessageEventArgs messageEventArgs)
         {
+
+            CommandService commands = new CommandService();
 
             var message = messageEventArgs.Message;
             var newUser = new BunkerUser(message.From.FirstName,message.Chat.Id);
