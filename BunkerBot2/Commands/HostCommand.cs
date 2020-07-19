@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using Telegram.Bot;
 using Telegram.Bot.Args;
 using BunkerBot2.Abstractions;
 using Telegram.Bot.Types;
 using System.Threading.Tasks;
 using Telegram.Bot.Types.Enums;
+using Bot1;
 
 namespace BunkerBot2.Commands
 {
@@ -16,9 +18,12 @@ namespace BunkerBot2.Commands
 
         public override string Name { get; } = "/host";
 
-        //TODO: is it better to take User instead of Message?
         public override async Task Execute(BunkerUser user, ITelegramBotClient client) 
         {
+            
+            user.IsHost = true;
+
+            await client.SendTextMessageAsync(user.ChatID, "You are now a host");
             
         }
     }
