@@ -15,7 +15,8 @@ namespace BunkerBot2.Service
             {
                 new HostCommand(),
                 new StartCommand(),
-                new JoinCommand()
+                new JoinCommand(),
+                new HelpCommand()
             };
 
         }

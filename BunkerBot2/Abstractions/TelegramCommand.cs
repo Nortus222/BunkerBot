@@ -3,8 +3,7 @@ using Telegram.Bot;
 using Telegram.Bot.Args;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
-
-
+using Telegram.Bot.Types.Enums;
 
 namespace BunkerBot2.Abstractions
 {
@@ -12,8 +11,16 @@ namespace BunkerBot2.Abstractions
     {
         public abstract string Name { get; }
 
-        public abstract Task Execute(Message message, ITelegramBotClient client);
+        public abstract Task Execute(User user, ITelegramBotClient client);
 
-        public abstract bool Contains(Message message);
+        public bool Contains(Message message)
+        {
+            if (message.Type != MessageType.Text)
+            {
+                return false;
+            }
+
+            return message.Text.Contains(Name);
+        }
     }
 }
