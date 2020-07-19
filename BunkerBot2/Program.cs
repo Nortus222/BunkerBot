@@ -8,6 +8,9 @@ using System.Collections.Generic;
 using Telegram.Bot.Types.ReplyMarkups;
 using System.Threading.Tasks;
 using System.Threading;
+using BunkerBot2.Commands;
+using BunkerBot2.Service;
+using BunkerBot2.Abstractions;
 
 namespace Bot1
 {
@@ -35,32 +38,27 @@ namespace Bot1
 
         private static async void BotOnMessageReceived(object sender, MessageEventArgs messageEventArgs)
         {
+
+            CommandService commands = new CommandService();
+
             var message = messageEventArgs.Message;
+
             if (message?.Type == MessageType.Text)
                 await client.SendTextMessageAsync(message.Chat.Id, "/start - start");
-            //string start = "/start";
             {
-                // switch (message.Text)
-                // {
-                //     case start:
-                //     await client.SendTextMessageAsync(message.Chat.Id, "Welcome");
-                // }
-                if (message.Text == "/start")
-                {
-                    var keyboard = new Telegram.Bot.Types.ReplyMarkups.InlineKeyboardMarkup(
-                        new Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton[][]
-                        {
-                            new[]
-                            {
-                                InlineKeyboardButton.WithCallbackData("/help"),
-                                InlineKeyboardButton.WithCallbackData("/start")
-
-                            },
-                        }
-                    );
-
-                    await client.SendTextMessageAsync(message.Chat.Id, "Choose option", replyMarkup: keyboard);
+                
+                        
+                foreach(TelegramCommand command in commands.Get())
+                {       
+                     if (command.Contains(message))
+                     {
+                                
+                         await command.Execute(message, client);
+                         
+                     }
+                       
                 }
+
             }
 
         }
