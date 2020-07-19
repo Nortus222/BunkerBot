@@ -13,16 +13,6 @@ namespace BunkerBot2.Abstractions
 
         public abstract Task Execute(BunkerUser user, ITelegramBotClient client);
 
-        public bool Contains(Message message)
-        {
-            if (message.Type != MessageType.Text)
-            {
-                return false;
-            }
-
-            return message.Text.Contains(Name);
-        }
-
         public bool Contains(string message)
         {
             return message.Contains(Name);

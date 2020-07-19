@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using static System.Console;
 using Telegram.Bot;
 using Telegram.Bot.Args;
@@ -83,6 +83,8 @@ namespace Bot1
 
         private static TelegramBotClient client;
 
+        private static CommandService commands = new CommandService();
+
         static void Main(string[] args)
         {
             client = new TelegramBotClient("1111775546:AAEqesvfDbF-UDS48I1OtwAxNprAFvkJ_NI");
@@ -96,13 +98,34 @@ namespace Bot1
 
         private static async void BotOnCallbackQueryReceived(object sender, CallbackQueryEventArgs e)
         {
-            await client.SendTextMessageAsync(e.CallbackQuery.From.Id, $"{e.CallbackQuery.From.FirstName} pressed {e.CallbackQuery.Data}");
+
+            var message = e.CallbackQuery.Data;
+
+            BunkerUser curUser;
+
+            foreach(BunkerUser currentUser in BunkerUsers)
+            {
+
+                if (currentUser.EqualID(e.CallbackQuery.From.Id))
+                {
+                    curUser = currentUser;
+                    foreach (TelegramCommand command in commands.Get())
+                    {
+                        if (command.Contains(message))
+                        {
+
+                            await command.Execute(curUser, client);
+                            break;
+                        }
+
+                    }
+                    break;
+                }
+            }
         }
 
         private static async void BotOnMessageReceived(object sender, MessageEventArgs messageEventArgs)
         {
-
-            CommandService commands = new CommandService();
 
             var message = messageEventArgs.Message;
             var newUser = new BunkerUser(message.From.FirstName,message.Chat.Id);
@@ -114,7 +137,7 @@ namespace Bot1
                         
                 foreach(TelegramCommand command in commands.Get())
                 {       
-                     if (command.Contains(message))
+                     if (command.Contains(message.Text))
                      {
                                 
                          await command.Execute(newUser, client);
