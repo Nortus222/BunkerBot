@@ -11,12 +11,12 @@ namespace BunkerBot2.Commands
 
         public async override Task Execute(BunkerUser user, ITelegramBotClient client)
         {
-            Program.RemoveUser(user);
-            foreach(var room in Program.GetRooms())
+            Program.GetBunkerUsers.RemoveUser(user);
+            foreach (var room in Program.GetRooms.Rooms)
             {
                 if (room.Players.Contains(user))
                 {
-                    room. RemovePlayer(user);
+                    room.RemovePlayer(user);
                 }
             }
         }
