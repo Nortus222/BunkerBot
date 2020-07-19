@@ -25,7 +25,6 @@ namespace Bot1
             client.OnMessage += BotOnMessageReceived;
             client.OnMessageEdited += BotOnMessageReceived;
             client.OnCallbackQuery += BotOnCallbackQueryReceived;
-            //client.SendTextMessageAsync()
             client.StartReceiving();
             Console.ReadLine();
             client.StopReceiving();
