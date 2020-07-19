@@ -5,6 +5,7 @@ using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
+using Bot1;
 
 namespace BunkerBot2.Commands
 {
@@ -36,6 +37,23 @@ namespace BunkerBot2.Commands
                     ) ;
 
             await client.SendTextMessageAsync(user.ChatID, "Choose option", replyMarkup: keyboard);
+
+            bool exist = false;
+            var bunkerUsers = Program.Get();
+            foreach(var us in bunkerUsers)
+            {
+                if(user.ChatID == us.ChatID)
+                {
+                    exist = true;
+                }
+            }
+            if(!exist) Program.AddUser(user);
+            
+            foreach(var us in bunkerUsers)
+            {
+                await client.SendTextMessageAsync(user.ChatID,(user.NickName));
+            }  
+
         }
     }
 }

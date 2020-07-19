@@ -19,7 +19,7 @@ namespace Bot1
     class Program
     {
         private static List<BunkerUser> BunkerUsers = new List<BunkerUser>();
-        public List<BunkerUser> Get()
+        public static List<BunkerUser> Get()
         {
             return BunkerUsers;
         }
@@ -27,7 +27,11 @@ namespace Bot1
         public static void ClearList()
         {
             BunkerUsers.Clear();
+        }
 
+        public static void AddUser(BunkerUser user)
+        {
+            BunkerUsers.Add(user);
         }
         private static TelegramBotClient client;
 
@@ -54,21 +58,7 @@ namespace Bot1
 
             var message = messageEventArgs.Message;
             var newUser = new BunkerUser(message.From.FirstName,message.Chat.Id);
-            bool exist = false;
-            foreach(var user in BunkerUsers)
-            {
-                if(message.Chat.Id == user.ChatID)
-                {
-                    exist = true;
-                }
-            }
-            if(!exist) BunkerUsers.Add(newUser);
             
-            foreach(var user in BunkerUsers)
-            {
-                await client.SendTextMessageAsync(message.Chat.Id,(user.NickName));
-            }  
-
             if (message?.Type == MessageType.Text)
                 await client.SendTextMessageAsync(message.Chat.Id, "/start - start");
             {
