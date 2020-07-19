@@ -52,9 +52,33 @@ namespace Bot1
             return false;
         }
 
-        public static void CreateRoom(BunkerUser user)
+        public static bool CreateRoom(BunkerUser user)
         {
-            rooms.Add(new Room(user));
+            bool hasRoom=false;
+            foreach(var room in rooms)
+            {
+                if(room.Host == user)
+                {
+                    client.SendTextMessageAsync(user.ChatID, "You already have a room. Use it or delete it.");
+                    hasRoom=true;
+                }
+            }
+            if(!hasRoom)
+            {   
+                rooms.Add(new Room(user));
+                client.SendTextMessageAsync(user.ChatID,"The room has been created.");
+                return true;
+            }
+            return false;
+        }
+        public static async void DeleteRoom(BunkerUser user)
+        {
+            for(int i =0;i<rooms.Count;i++)
+            {
+                if(rooms[i].Host==user) rooms.Remove(rooms[i]);
+                return;
+            }
+            await client.SendTextMessageAsync(user.ChatID,"You are not a host");
         }
 
         private static TelegramBotClient client;

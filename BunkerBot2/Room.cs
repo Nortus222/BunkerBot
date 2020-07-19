@@ -4,13 +4,14 @@ namespace BunkerBot2
 {
     public class Room
     {
-        public Room(BunkerUser host)
+        public Room(BunkerUser user)
         {
-            this.host = host;
-            players.Add(host);
+            this.host = user;
+            players.Add(user);
         }
         private BunkerUser host;
-        private List<BunkerUser> players;
+        public BunkerUser Host{get {return host;}}
+        private  List<BunkerUser> players = new List<BunkerUser>();
 
     }
 }
