@@ -8,9 +8,9 @@ using Telegram.Bot.Types.Enums;
 
 namespace BunkerBot2.Commands
 {
-    public class AdminCommand: TelegramCommand
+    public class HostCommand: TelegramCommand
     {
-        public AdminCommand()
+        public HostCommand()
         {
         }
 

@@ -13,8 +13,9 @@ namespace BunkerBot2.Service
         {
             commands = new List<TelegramCommand>
             {
-                new AdminCommand(),
-                new StartCommand()
+                new HostCommand(),
+                new StartCommand(),
+                new JoinCommand()
             };
 
         }
