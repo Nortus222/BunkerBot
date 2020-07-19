@@ -27,7 +27,7 @@ namespace Bot1
         public static void ClearList()
         {
             BunkerUsers.Clear();
-            
+
         }
         private static TelegramBotClient client;
 
