@@ -113,7 +113,7 @@ namespace Bot1
                         
                 foreach(TelegramCommand command in commands.Get())
                 {       
-                     if (command.Contains(message))
+                     if (command.Contains(message.Text))
                      {
                                 
                          await command.Execute(newUser, client);
