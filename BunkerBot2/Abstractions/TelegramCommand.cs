@@ -22,5 +22,10 @@ namespace BunkerBot2.Abstractions
 
             return message.Text.Contains(Name);
         }
+
+        public bool Contains(string message)
+        {
+            return message.Contains(Name);
+        }
     }
 }
