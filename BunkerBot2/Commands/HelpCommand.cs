@@ -1,5 +1,4 @@
 ﻿using System;
-using System;
 using Telegram.Bot;
 using Telegram.Bot.Args;
 using BunkerBot2.Abstractions;
@@ -19,7 +18,7 @@ namespace BunkerBot2.Commands
 
         public override async Task Execute(BunkerUser user, ITelegramBotClient client)
         {
-            string message = " /start - start a bot /n /host - to became a host of the game /n /join - to join the game ";
+            string message = " /start - start a bot \n /host - to became a host of the game \n /join - to join the game \n /quit - deletes you from bot memory \n /end - deletes all users from bot memory ";
 
             await client.SendTextMessageAsync(user.ChatID, message);
         }

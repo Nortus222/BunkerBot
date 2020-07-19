@@ -21,7 +21,7 @@ namespace BunkerBot2.Commands
 
         public override async Task Execute(BunkerUser user, ITelegramBotClient client)
         {
-            List<Room> roomList = Program.GetRooms();
+            List<Room> roomList = Program.GetRooms.Rooms;
 
             if(roomList == null || roomList.Count == 0)
             {

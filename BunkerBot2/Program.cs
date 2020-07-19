@@ -12,92 +12,22 @@ using BunkerBot2.Commands;
 using BunkerBot2.Service;
 using BunkerBot2.Abstractions;
 using BunkerBot2;
+using BunkerBot2.Lists;
+
 
 
 namespace Bot1
 {
     class Program
     {
-        private static List<BunkerUser> BunkerUsers = new List<BunkerUser>();
-        private static List<Room> rooms = new List<Room>();
-        public static List<BunkerUser> Get()
-        {
-            return BunkerUsers;
-        }
+       
+        private static BunkerUsersList bunkerUsers = new BunkerUsersList(new List<BunkerUser>());
 
-        public static List<Room> GetRooms()
-        {
-            return rooms;
-        }
+        private static RoomsList rooms = new RoomsList(new List<Room>());
 
-        public static void ClearList()
-        {
-            BunkerUsers.Clear();
-        }
+        public static RoomsList GetRooms => rooms;
 
-        public static void AddUser(BunkerUser user)
-        {
-            BunkerUsers.Add(user);
-        }
-
-        public static BunkerUser GetUserById(long id)
-        {
-            foreach(BunkerUser user in BunkerUsers)
-            {
-                if(id == user.ChatID)
-                {
-                    return user;
-                }
-            }
-
-            return null;
-        }
-
-        public static void  RemoveUser(BunkerUser user)
-        {
-            BunkerUsers.Remove(user);
-        }
-
-        public static bool CheckExistance(BunkerUser user)
-        {
-            foreach(var us in BunkerUsers)
-            {
-                if(us.ChatID == user.ChatID)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public static bool CreateRoom(BunkerUser user)
-        {
-            bool hasRoom=false;
-            foreach(var room in rooms)
-            {
-                if(room.Host == user)
-                {
-                    client.SendTextMessageAsync(user.ChatID, "You already have a room. Use it or delete it.");
-                    hasRoom=true;
-                }
-            }
-            if(!hasRoom)
-            {   
-                rooms.Add(new Room(user));
-                client.SendTextMessageAsync(user.ChatID,"The room has been created.");
-                return true;
-            }
-            return false;
-        }
-        public static async void DeleteRoom(BunkerUser user)
-        {
-            for(int i =0;i<rooms.Count;i++)
-            {
-                if(rooms[i].Host==user) rooms.Remove(rooms[i]);
-                return;
-            }
-            await client.SendTextMessageAsync(user.ChatID,"You are not a host");
-        }
+        public static BunkerUsersList GetBunkerUsers => bunkerUsers;
 
         private static TelegramBotClient client;
 
@@ -119,11 +49,11 @@ namespace Bot1
 
             var message = e.CallbackQuery.Data;
 
-            foreach(Room room in rooms)
+            foreach(Room room in rooms.Rooms)
             {
                 if(room.Host.NickName == message)
                 {
-                    room.AddToRoom(GetUserById(e.CallbackQuery.From.Id));
+                    room.AddToRoom(GetBunkerUsers. GetUserById(e.CallbackQuery.From.Id));
                     room.DisplayRoom();
 
                 }
@@ -131,7 +61,7 @@ namespace Bot1
 
             BunkerUser curUser;
 
-            foreach(BunkerUser currentUser in BunkerUsers)
+            foreach (BunkerUser currentUser in GetBunkerUsers.Users)
             {
 
                 if (currentUser.EqualID(e.CallbackQuery.From.Id))
@@ -159,10 +89,7 @@ namespace Bot1
             var newUser = new BunkerUser(message.From.FirstName,message.Chat.Id);
             
             if (message?.Type == MessageType.Text)
-                await client.SendTextMessageAsync(message.Chat.Id, "/start - start");
             {
-                
-                        
                 foreach(TelegramCommand command in commands.Get())
                 {       
                      if (command.Contains(message.Text))
@@ -176,6 +103,11 @@ namespace Bot1
 
             }
 
+        }
+
+        public static async void SendMessage(BunkerUser user, string message)
+        {
+            await client.SendTextMessageAsync(user.ChatID, message);
         }
     }
 }

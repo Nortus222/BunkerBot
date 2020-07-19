@@ -39,8 +39,8 @@ namespace BunkerBot2.Commands
             await client.SendTextMessageAsync(user.ChatID, "Choose option", replyMarkup: keyboard);
 
             
-            if(!Program.CheckExistance(user)) Program.AddUser(user);
-            var tmp = Program.Get();
+            if(!Program.GetBunkerUsers.CheckExistance(user)) Program.GetBunkerUsers.Add(user);
+            var tmp = Program.GetBunkerUsers.Users;
             foreach(var us in tmp)
             {
                 await client.SendTextMessageAsync(user.ChatID,(us.NickName));
