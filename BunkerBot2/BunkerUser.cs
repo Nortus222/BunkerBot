@@ -30,6 +30,8 @@ namespace BunkerBot2
         public bool IsHost
         {
             get { return this.isHost; }
+
+            set {this.isHost = value; }
         }
 
         public bool Equals(BunkerUser other) => other.ChatID == this.ChatID;
