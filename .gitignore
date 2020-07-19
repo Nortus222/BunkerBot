@@ -5,6 +5,7 @@ OS junk files
 #Visual Studio files
 *.[Oo]bj
 *.user
+*.vscode
 *.aps
 *.pch
 *.vspscc
