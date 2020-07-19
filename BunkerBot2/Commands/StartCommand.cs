@@ -38,20 +38,12 @@ namespace BunkerBot2.Commands
 
             await client.SendTextMessageAsync(user.ChatID, "Choose option", replyMarkup: keyboard);
 
-            bool exist = false;
-            var bunkerUsers = Program.Get();
-            foreach(var us in bunkerUsers)
-            {
-                if(user.ChatID == us.ChatID)
-                {
-                    exist = true;
-                }
-            }
-            if(!exist) Program.AddUser(user);
             
-            foreach(var us in bunkerUsers)
+            if(!Program.CheckExistance(user)) Program.AddUser(user);
+            var tmp = Program.Get();
+            foreach(var us in tmp)
             {
-                await client.SendTextMessageAsync(user.ChatID,(user.NickName));
+                await client.SendTextMessageAsync(user.ChatID,(us.NickName));
             }  
 
         }

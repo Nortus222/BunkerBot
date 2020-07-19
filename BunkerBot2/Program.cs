@@ -33,6 +33,19 @@ namespace Bot1
         {
             BunkerUsers.Add(user);
         }
+
+        public static bool CheckExistance(BunkerUser user)
+        {
+            foreach(var us in BunkerUsers)
+            {
+                if(us.ChatID == user.ChatID)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private static TelegramBotClient client;
 
         static void Main(string[] args)
