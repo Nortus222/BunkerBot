@@ -11,7 +11,7 @@ namespace BunkerBot2.Abstractions
     {
         public abstract string Name { get; }
 
-        public abstract Task Execute(User user, ITelegramBotClient client);
+        public abstract Task Execute(BunkerUser user, ITelegramBotClient client);
 
         public bool Contains(Message message)
         {

@@ -16,7 +16,7 @@ namespace BunkerBot2.Commands
 
         public override string Name { get; } = "/join";
 
-        public override Task Execute(User user, ITelegramBotClient client)
+        public override Task Execute(BunkerUser user, ITelegramBotClient client)
         {
             throw new NotImplementedException();
         }

@@ -17,7 +17,7 @@ namespace BunkerBot2.Commands
         public override string Name { get; } = "/host";
 
         //TODO: is it better to take User instead of Message?
-        public override async Task Execute(User user, ITelegramBotClient client) 
+        public override async Task Execute(BunkerUser user, ITelegramBotClient client) 
         {
             
         }

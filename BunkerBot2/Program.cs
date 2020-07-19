@@ -48,6 +48,12 @@ namespace Bot1
             CommandService commands = new CommandService();
 
             var message = messageEventArgs.Message;
+            var newUser = new BunkerUser(message.From.FirstName,message.Chat.Id);
+            BunkerUsers.Add(newUser);
+            foreach(var user in BunkerUsers)
+            {
+                await client.SendTextMessageAsync(message.Chat.Id,(user.NickName));
+            }  
 
             if (message?.Type == MessageType.Text)
                 await client.SendTextMessageAsync(message.Chat.Id, "/start - start");
@@ -59,7 +65,7 @@ namespace Bot1
                      if (command.Contains(message))
                      {
                                 
-                         await command.Execute(message, client);
+                         await command.Execute(newUser, client);
                          
                      }
                        
@@ -72,11 +78,6 @@ namespace Bot1
         private static async void AddBunkerUser(object sender, MessageEventArgs messageEventArgs)
         {
             var message = messageEventArgs.Message;
-            BunkerUsers.Add(new BunkerUser(message.From.FirstName,message.Chat.Id,true));
-            foreach(var user in BunkerUsers)
-            {
-                await client.SendTextMessageAsync(message.Chat.Id,(user.NickName));
-            }  
         }
     }
 }
