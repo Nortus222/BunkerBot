@@ -11,12 +11,18 @@ using System.Threading;
 using BunkerBot2.Commands;
 using BunkerBot2.Service;
 using BunkerBot2.Abstractions;
+using BunkerBot2;
+
 
 namespace Bot1
 {
     class Program
     {
-        private static List<User> users = new List<User>();
+        private static List<BunkerUser> BunkerUsers = new List<BunkerUser>();
+        public List<BunkerUser> Get()
+        {
+            return BunkerUsers;
+        }
         private static TelegramBotClient client;
 
         static void Main(string[] args)
@@ -24,6 +30,7 @@ namespace Bot1
             client = new TelegramBotClient("1111775546:AAEqesvfDbF-UDS48I1OtwAxNprAFvkJ_NI");
             client.OnMessage += BotOnMessageReceived;
             client.OnMessageEdited += BotOnMessageReceived;
+            client.OnMessageEdited += AddBunkerUser;
             client.OnCallbackQuery += BotOnCallbackQueryReceived;
             client.StartReceiving();
             Console.ReadLine();
@@ -62,7 +69,14 @@ namespace Bot1
 
         }
 
-        
-
+        private static async void AddBunkerUser(object sender, MessageEventArgs messageEventArgs)
+        {
+            var message = messageEventArgs.Message;
+            BunkerUsers.Add(new BunkerUser(message.From.FirstName,message.Chat.Id,true));
+            foreach(var user in BunkerUsers)
+            {
+                await client.SendTextMessageAsync(message.Chat.Id,(user.NickName));
+            }  
+        }
     }
 }
