@@ -1,7 +1,7 @@
 ﻿using System;
 namespace BunkerBot2
 {
-    public class User
+    public class BunkerUser
     {
 
         private long chatID;
@@ -10,7 +10,7 @@ namespace BunkerBot2
 
         private bool isHost;
 
-        public User(string NickName, long ChatID, bool isHost = false)
+        public BunkerUser(string NickName, long ChatID, bool isHost = false)
         {
             this.chatID = ChatID;
             this.nickName = NickName;
@@ -32,6 +32,6 @@ namespace BunkerBot2
             get { return this.isHost; }
         }
 
-        public bool Equals(User other) => other.ChatID == this.ChatID;
+        public bool Equals(BunkerUser other) => other.ChatID == this.ChatID;
     }
 }
