@@ -35,5 +35,7 @@ namespace BunkerBot2
         }
 
         public bool Equals(BunkerUser other) => other.ChatID == this.ChatID;
+
+        public bool EqualID(long other) => other == this.ChatID;
     }
 }
