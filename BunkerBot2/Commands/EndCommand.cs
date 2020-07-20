@@ -11,7 +11,9 @@ namespace BunkerBot2.Commands
 
         public override async Task Execute(BunkerUser user, ITelegramBotClient client)
         {
-            Program.GetBunkerUsers.Clear();
+            //TODO Clear all the lists, remove all isHost flags (if its necessary, idk)
+            Program.bunkerUsers.CLearBunkerUsersList();
+            Program.rooms.ClearRoomList();
 
             await client.SendTextMessageAsync(user.ChatID, "All users has been deleted from the bot memory");
         }

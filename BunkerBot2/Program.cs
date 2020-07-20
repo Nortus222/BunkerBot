@@ -21,9 +21,9 @@ namespace Bot1
     class Program
     {
        
-        private static BunkerUsersList bunkerUsers = new BunkerUsersList(new List<BunkerUser>());
+        public static BunkerUsersList bunkerUsers = new BunkerUsersList();
 
-        private static RoomsList rooms = new RoomsList(new List<Room>());
+        public static RoomsList rooms = new RoomsList();
 
         public static RoomsList GetRooms => rooms;
 

@@ -7,6 +7,7 @@ using Telegram.Bot.Types;
 using System.Threading.Tasks;
 using Telegram.Bot.Types.Enums;
 using Bot1;
+using BunkerBot2.Lists;
 
 namespace BunkerBot2.Commands
 {
@@ -20,10 +21,12 @@ namespace BunkerBot2.Commands
 
         public override async Task Execute(BunkerUser user, ITelegramBotClient client) 
         {
-            
-            user.IsHost = true;
 
-            if(Program.GetRooms.CreateRoom(user)) await client.SendTextMessageAsync(user.ChatID, "You are now a host");
+            if(Program.rooms.CreateRoom(user)) 
+            {
+                await client.SendTextMessageAsync(user.ChatID, "You are now a host");
+                user.IsHost = true;
+            }
             else await client.SendTextMessageAsync(user.ChatID, "Error!");
             
         }

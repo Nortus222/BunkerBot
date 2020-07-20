@@ -11,7 +11,8 @@ namespace BunkerBot2.Commands
 
         public override async Task Execute(BunkerUser user, ITelegramBotClient client)
         {
-            Program.GetRooms.DeleteRoom(user);
+            
+            Program.rooms.DeleteRoom(user);
         }
     }
 }

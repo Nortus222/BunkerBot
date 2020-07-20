@@ -8,12 +8,12 @@ namespace BunkerBot2.Lists
     public class RoomsList
     {
 
-        public List<Room> Rooms { get; }
+        private List<Room> rooms = new List<Room>();
+        public List<Room> Rooms => rooms;
 
-        public RoomsList(List<Room> rooms)
+        public RoomsList()
         {
-            Rooms = rooms;
-            
+
         }
 
         public bool CreateRoom(BunkerUser user)
@@ -29,7 +29,7 @@ namespace BunkerBot2.Lists
             }
             if (!hasRoom)
             {
-                Rooms.Add(new Room(user));
+                rooms.Add(new Room(user));
                 Program.SendMessage(user, "The room has been created.");
                 return true;
             }
@@ -38,12 +38,35 @@ namespace BunkerBot2.Lists
 
         public void DeleteRoom(BunkerUser user)
         {
-            for (int i = 0; i < Rooms.Count; i++)
+            var tmp = new List<Room>();
+            bool catched = false;
+            for (int i = 0; i < rooms.Count; i++)
             {
-                if (Rooms[i].Host == user) Rooms.Remove(Rooms[i]);
-                return;
+                if (rooms[i].Host == user) 
+                {
+                    rooms[i].ClearRoom();
+                    user.IsHost =false;
+                    catched = true;
+                }
+                else
+                {
+                    tmp.Add(rooms[i]);
+                }    
             }
-            Program.SendMessage(user, "You are not a host");
+            if(catched)
+            {
+                rooms = tmp;
+                Program.SendMessage(user, "Room has been deleted.");
+            }
+            else
+            {
+                Program.SendMessage(user, "You are not a host");
+            }
+        }
+
+        public void ClearRoomList()
+        {
+            rooms.Clear();
         }
     }
 }

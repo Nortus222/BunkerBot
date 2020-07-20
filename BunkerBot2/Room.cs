@@ -17,14 +17,8 @@ namespace BunkerBot2
 
         private  List<BunkerUser> players = new List<BunkerUser>();
 
-        public List<BunkerUser> Players
-        {
-            get
-            {
-                return players;
-            }
-        }
-
+        public List<BunkerUser> Players => players;
+        
         public void RemovePlayer(BunkerUser user)
         {
             players.Remove(user);
@@ -35,10 +29,10 @@ namespace BunkerBot2
             foreach(var room in Program.GetRooms.Rooms)
             {
                 if (room.Players.Contains(user))
-            {
-                Console.WriteLine("Fuck");
-                return false;
-            }
+                {
+                    Console.WriteLine("Fuck");
+                    return false;
+                }
             }
             this.players.Add(user);
             return true;
@@ -51,6 +45,11 @@ namespace BunkerBot2
             {
                 Console.WriteLine(user.NickName);
             }
+        }
+
+        public void ClearRoom()
+        {
+            players.Clear();
         }
 
     }

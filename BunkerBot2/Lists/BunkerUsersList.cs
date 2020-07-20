@@ -5,17 +5,17 @@ namespace BunkerBot2.Lists
 {
     public class BunkerUsersList
     {
+        private List<BunkerUser> users = new List<BunkerUser>();
+        public List<BunkerUser> Users => users;
 
-        public List<BunkerUser> Users { get; }
-
-        public BunkerUsersList(List<BunkerUser> users)
+        public BunkerUsersList()
         {
-            Users = users;
+            
         }
 
         public BunkerUser GetUserById(long id)
         {
-            foreach (BunkerUser user in Users)
+            foreach (BunkerUser user in users)
             {
                 if (user.EqualID(id))
                 {
@@ -28,7 +28,7 @@ namespace BunkerBot2.Lists
 
         public bool CheckExistance(BunkerUser user)
         {
-            foreach (var us in Users)
+            foreach (var us in users)
             {
                 if (us.Equals(user))
                 {
@@ -40,17 +40,22 @@ namespace BunkerBot2.Lists
 
         public void Add(BunkerUser user)
         {
-            Users.Add(user);
+            users.Add(user);
         }
 
         public void Clear()
         {
-            Users.Clear();
+            users.Clear();
         }
 
         public void RemoveUser(BunkerUser user)
         {
-            Users.Remove(user);
+            users.Remove(user);
+        }
+
+        public void CLearBunkerUsersList()
+        {
+            users.Clear();
         }
 
     }
