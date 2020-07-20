@@ -33,6 +33,8 @@ namespace Bot1
 
         private static CommandService commands = new CommandService();
 
+        public static CommandService GetCommands => commands;
+
         static void Main(string[] args)
         {
             client = new TelegramBotClient("1111775546:AAEqesvfDbF-UDS48I1OtwAxNprAFvkJ_NI");

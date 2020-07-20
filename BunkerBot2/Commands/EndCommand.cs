@@ -12,6 +12,8 @@ namespace BunkerBot2.Commands
         public override async Task Execute(BunkerUser user, ITelegramBotClient client)
         {
             Program.GetBunkerUsers.Clear();
+
+            await client.SendTextMessageAsync(user.ChatID, "All users has been deleted from the bot memory");
         }
     }
 }

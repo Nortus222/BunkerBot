@@ -19,6 +19,8 @@ namespace BunkerBot2.Commands
                     room.RemovePlayer(user);
                 }
             }
+
+            await client.SendTextMessageAsync(user.ChatID, "You has been deleted from the bot memory");
         }
     }
 }

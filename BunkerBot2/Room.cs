@@ -32,7 +32,7 @@ namespace BunkerBot2
 
         public bool AddToRoom(BunkerUser user)
         {
-            foreach(var room in Program.GetRooms())
+            foreach(var room in Program.GetRooms.Rooms)
             {
                 if (room.Players.Contains(user))
             {

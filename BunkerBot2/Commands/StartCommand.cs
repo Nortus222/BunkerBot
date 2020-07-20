@@ -6,6 +6,7 @@ using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 using Bot1;
+using BunkerBot2.Service;
 
 namespace BunkerBot2.Commands
 {
@@ -19,33 +20,45 @@ namespace BunkerBot2.Commands
 
         public override async Task Execute(BunkerUser user, ITelegramBotClient client)
         {
-            var keyboard = new Telegram.Bot.Types.ReplyMarkups.InlineKeyboardMarkup(
-                        new Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton[][]
-                        {
-                            new[]
-                            {
-                                InlineKeyboardButton.WithCallbackData("/help"),
-                                InlineKeyboardButton.WithCallbackData("/start")
+            CommandService commands = Program.GetCommands;
 
-                            },
-                            new[]
-                            {
-                                InlineKeyboardButton.WithCallbackData("/host"),
-                                InlineKeyboardButton.WithCallbackData("/join")
-                            }
-                        }
-                    ) ;
+            int b = commands.Get().Count % 2 == 0 ? commands.Get().Count / 2 : commands.Get().Count / 2 + 1;
+            
+            int count = 0;
+
+            InlineKeyboardButton[][] buttons = new InlineKeyboardButton[b][];
+
+            for (int i = 0; i < b; i++)
+            {
+                if (commands.Get().Count % 2 != 0 && i == b - 1)
+                {
+                    buttons[i] = new[] { InlineKeyboardButton.WithCallbackData($"{commands.Get()[count].Name}") };
+
+                }
+                else
+                {
+
+                    buttons[i] = new[] {
+                        InlineKeyboardButton.WithCallbackData($"{commands.Get()[count].Name}"),
+                        InlineKeyboardButton.WithCallbackData($"{commands.Get()[count+1].Name}")
+                    };
+                    count += 2;
+                }
+            }
+
+            var keyboard = new Telegram.Bot.Types.ReplyMarkups.InlineKeyboardMarkup(buttons);
 
             await client.SendTextMessageAsync(user.ChatID, "Choose option", replyMarkup: keyboard);
 
             
             if(!Program.GetBunkerUsers.CheckExistance(user)) Program.GetBunkerUsers.Add(user);
             var tmp = Program.GetBunkerUsers.Users;
+            string message = "Users Online:";
             foreach(var us in tmp)
             {
-                await client.SendTextMessageAsync(user.ChatID,(us.NickName));
-            }  
-
+                message += $"\n{us.NickName}";
+            }
+            await client.SendTextMessageAsync(user.ChatID, message);
         }
     }
 }

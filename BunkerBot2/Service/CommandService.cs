@@ -9,10 +9,10 @@ namespace BunkerBot2.Service
     {
         private readonly List<TelegramCommand> commands = new List<TelegramCommand>
         {
-            new HostCommand(),
-            new StartCommand(),
-            new JoinCommand(),
             new HelpCommand(),
+            new StartCommand(),
+            new HostCommand(),
+            new JoinCommand(),
             new EndCommand(),
             new QuitCommand(),
             new GameOverCommand()
