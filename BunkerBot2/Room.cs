@@ -12,6 +12,7 @@ namespace BunkerBot2
         {
             this.host = user;
             players.Add(user);
+            user.IsPlayer = true;
         }
         private BunkerUser host;
 
@@ -26,11 +27,14 @@ namespace BunkerBot2
             if (user.IsHost)
             {
                 user.IsHost = false;
+                user.IsPlayer = false;
                 players.Remove(user);
+                Notify($"{user.NickName} left");
                 if(players.Count > 0)
                 {
                     players[0].IsHost = true;
                     host = players[0];
+                    Program.SendMessage(host, "You are a host now");
 
                 }
                 else
@@ -41,6 +45,8 @@ namespace BunkerBot2
             else
             {
                 players.Remove(user);
+                user.IsPlayer = false;
+                Notify($"{user.NickName} left");
             }
             
         }
@@ -56,6 +62,8 @@ namespace BunkerBot2
                 }
             }
             this.players.Add(user);
+            user.IsPlayer = true;
+            Notify($"{user.NickName} joined");
             return true;
             
         }
@@ -72,6 +80,14 @@ namespace BunkerBot2
         {
             players.Clear();
             host = null;
+        }
+
+        public void Notify(string message)
+        {
+            foreach(BunkerUser player in players)
+            {
+                Program.SendMessage(player, message);
+            }
         }
 
     }

@@ -55,7 +55,7 @@ namespace Bot1
             {
                 if(room.Host.NickName == message)
                 {
-                    room.AddToRoom(GetBunkerUsers. GetUserById(e.CallbackQuery.From.Id));
+                    room.AddToRoom(GetBunkerUsers.GetUserById(e.CallbackQuery.From.Id));
                     room.DisplayRoom();
 
                 }

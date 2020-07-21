@@ -25,6 +25,7 @@ namespace BunkerBot2.Commands
 
             if(roomList == null || roomList.Count == 0)
             {
+                await client.SendTextMessageAsync(user.ChatID, "There are no rooms to join at the moment.");
                 return;
             }
 
