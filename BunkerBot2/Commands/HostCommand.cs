@@ -24,8 +24,9 @@ namespace BunkerBot2.Commands
 
             if(Program.rooms.CreateRoom(user)) 
             {
-                await client.SendTextMessageAsync(user.ChatID, "You are now a host");
                 user.IsHost = true;
+                await client.SendTextMessageAsync(user.ChatID, "You are now a host");
+                
             }
             else await client.SendTextMessageAsync(user.ChatID, "Error!");
             

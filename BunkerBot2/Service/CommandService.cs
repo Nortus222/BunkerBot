@@ -11,6 +11,7 @@ namespace BunkerBot2.Service
         {
             new HelpCommand(),
             new StartCommand(),
+            new DisplayBtnCommand(),
             new HostCommand(),
             new JoinCommand(),
             new EndCommand(),
@@ -18,7 +19,40 @@ namespace BunkerBot2.Service
             new GameOverCommand()
         };
 
-        public List<TelegramCommand> Get() => commands;
+        private readonly List<TelegramCommand> adminCommands = new List<TelegramCommand>
+        {
+            new HelpCommand(),
+            new QuitCommand(),
+            new EndCommand(),
+            new GameOverCommand()
+        };
+
+        private readonly List<TelegramCommand> playerCommands = new List<TelegramCommand>
+        {
+            new HelpCommand(),
+            new QuitCommand(),
+            new EndCommand()
+        };
+
+        private readonly List<TelegramCommand> newUserCommands = new List<TelegramCommand>
+        {
+            new HelpCommand(),
+            new EndCommand(),
+            new HostCommand(),
+            new JoinCommand()
+        };
+
+        public List<TelegramCommand> GetAll() => commands;
+
+        public List<TelegramCommand> GetAdmin() => adminCommands;
+
+        public List<TelegramCommand> GetPlayer() => playerCommands;
+
+        public List<TelegramCommand> GetNew() => newUserCommands;
+
+        public TelegramCommand GetDisplayCommand() => new DisplayBtnCommand();
+
+        public TelegramCommand GetStartCommand() => new StartCommand();
 
     }
 }

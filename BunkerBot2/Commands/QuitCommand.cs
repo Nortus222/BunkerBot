@@ -11,7 +11,6 @@ namespace BunkerBot2.Commands
 
         public async override Task Execute(BunkerUser user, ITelegramBotClient client)
         {
-            Program.bunkerUsers.RemoveUser(user);
             foreach (var room in Program.GetRooms.Rooms)
             {
                 if (room.Players.Contains(user))
@@ -20,7 +19,7 @@ namespace BunkerBot2.Commands
                 }
             }
 
-            await client.SendTextMessageAsync(user.ChatID, "You has been deleted from the bot memory");
+            await client.SendTextMessageAsync(user.ChatID, "You have quited the room.\nJoin new one or create yours");
         }
     }
 }
