@@ -16,12 +16,14 @@ namespace BunkerBot2.Service
             new JoinCommand(),
             new EndCommand(),
             new QuitCommand(),
-            new GameOverCommand()
+            new GameOverCommand(),
+            new PlayersCommand()
         };
 
         private readonly List<TelegramCommand> adminCommands = new List<TelegramCommand>
         {
             new HelpCommand(),
+            new PlayersCommand(),
             new QuitCommand(),
             new EndCommand(),
             new GameOverCommand()
@@ -30,6 +32,7 @@ namespace BunkerBot2.Service
         private readonly List<TelegramCommand> playerCommands = new List<TelegramCommand>
         {
             new HelpCommand(),
+            new PlayersCommand(),
             new QuitCommand(),
             new EndCommand()
         };

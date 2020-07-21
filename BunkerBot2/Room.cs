@@ -21,6 +21,18 @@ namespace BunkerBot2
         private  List<BunkerUser> players = new List<BunkerUser>();
 
         public List<BunkerUser> Players => players;
+
+        public bool ContainsUser(BunkerUser user)
+        {
+            foreach(BunkerUser player in players)
+            {
+                if (player.Equals(user))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         
         public void RemovePlayer(BunkerUser user)
         {
