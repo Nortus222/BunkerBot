@@ -69,7 +69,7 @@ namespace Bot1
                 if (currentUser.EqualID(e.CallbackQuery.From.Id))
                 {
                     curUser = currentUser;
-                    foreach (TelegramCommand command in commands.Get())
+                    foreach (TelegramCommand command in commands.GetAll())
                     {
                         if (command.Contains(message))
                         {
@@ -89,10 +89,28 @@ namespace Bot1
 
             var message = messageEventArgs.Message;
             var newUser = new BunkerUser(message.From.FirstName,message.Chat.Id);
+
+            if (bunkerUsers.CheckExistance(newUser))
+            {
+                newUser = bunkerUsers.GetUserById(message.Chat.Id);
+            }
+            else
+            {
+                if (message.Text == "/start")
+                {
+                    await commands.GetStartCommand().Execute(newUser, client);
+                    return;
+                }
+                else
+                {
+                    await client.SendTextMessageAsync(newUser.ChatID, "You are not in system.\nUse /start to jump into the game.");
+                    return;
+                }
+            }
             
             if (message?.Type == MessageType.Text)
             {
-                foreach(TelegramCommand command in commands.Get())
+                foreach(TelegramCommand command in commands.GetAll())
                 {       
                      if (command.Contains(message.Text))
                      {

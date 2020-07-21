@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System;
 using Bot1;
+using BunkerBot2.Service;
+using BunkerBot2.Lists;
 
 namespace BunkerBot2
 {
@@ -21,7 +23,26 @@ namespace BunkerBot2
         
         public void RemovePlayer(BunkerUser user)
         {
-            players.Remove(user);
+            if (user.IsHost)
+            {
+                user.IsHost = false;
+                players.Remove(user);
+                if(players.Count > 0)
+                {
+                    players[0].IsHost = true;
+                    host = players[0];
+
+                }
+                else
+                {
+                    Program.rooms.DeleteRoom(user);
+                }
+            }
+            else
+            {
+                players.Remove(user);
+            }
+            
         }
 
         public bool AddToRoom(BunkerUser user)
@@ -50,6 +71,7 @@ namespace BunkerBot2
         public void ClearRoom()
         {
             players.Clear();
+            host = null;
         }
 
     }
