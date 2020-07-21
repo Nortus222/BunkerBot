@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace BunkerBot2
 {
     public class BunkerUser
@@ -22,5 +24,7 @@ namespace BunkerBot2
         public bool Equals(BunkerUser other) => other.ChatID == this.ChatID;
 
         public bool EqualID(long other) => other == this.ChatID;
+
+        public List<string> Card = new List<string>();
     }
 }

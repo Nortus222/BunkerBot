@@ -57,6 +57,7 @@ namespace Bot1
                 {
                     room.AddToRoom(GetBunkerUsers.GetUserById(e.CallbackQuery.From.Id));
                     room.DisplayRoom();
+                    await commands.GetDisplayBtnCommand().Execute(GetBunkerUsers.GetUserById(e.CallbackQuery.From.Id),client);        
 
                 }
             }
@@ -75,6 +76,7 @@ namespace Bot1
                         {
 
                             await command.Execute(curUser, client);
+                            await commands.GetDisplayBtnCommand().Execute(curUser,client);
                             break;
                         }
 
@@ -99,7 +101,8 @@ namespace Bot1
             {
                 if (message.Text == "/start")
                 {
-                    await commands.GetStartCommand().Execute(newUser, client);
+                    await commands.GetStartCommand().Execute(newUser, client); 
+                    await commands.GetDisplayBtnCommand().Execute(newUser,client);
                     return;
                 }
                 else
@@ -116,8 +119,8 @@ namespace Bot1
                      if (command.Contains(message.Text))
                      {
                                 
-                         await command.Execute(newUser, client);
-                         
+                        await command.Execute(newUser, client);
+                        await commands.GetDisplayBtnCommand().Execute(newUser,client);
                      }
                        
                 }
