@@ -102,5 +102,17 @@ namespace BunkerBot2
             }
         }
 
+        public BunkerUser GetPlayerByName(string name)
+        {
+            foreach(BunkerUser player in players)
+            {
+                if(player.NickName == name)
+                {
+                    return player;
+                }
+            }
+            return null;
+        }
+
     }
 }

@@ -18,13 +18,15 @@ namespace BunkerBot2.Service
             new QuitCommand(),
             new GameOverCommand(),
             new PlayersCommand(),
-            new CreateCardsCommand()
+            new CreateCardsCommand(),
+            new VoteCommand()
         };
 
         private readonly List<TelegramCommand> adminCommands = new List<TelegramCommand>
         {
             new HelpCommand(),
             new PlayersCommand(),
+            new VoteCommand(),
             new QuitCommand(),
             new EndCommand(),
             new GameOverCommand(),

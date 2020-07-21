@@ -118,7 +118,6 @@ namespace Bot1
                 {       
                      if (command.Contains(message.Text))
                      {
-                                
                         await command.Execute(newUser, client);
                         await commands.GetDisplayBtnCommand().Execute(newUser,client);
                      }

@@ -68,5 +68,18 @@ namespace BunkerBot2.Lists
         {
             rooms.Clear();
         }
+
+        public Room GetRoomByPlayer(BunkerUser player)
+        {
+            foreach(Room room in rooms)
+            {
+                if (room.ContainsUser(player))
+                {
+                    return room;
+                }
+            }
+
+            return null;
+        }
     }
 }
