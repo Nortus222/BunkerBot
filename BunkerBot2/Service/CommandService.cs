@@ -56,6 +56,7 @@ namespace BunkerBot2.Service
         public TelegramCommand GetDisplayCommand() => new DisplayBtnCommand();
 
         public TelegramCommand GetStartCommand() => new StartCommand();
+        public TelegramCommand GetDisplayBtnCommand() => new DisplayBtnCommand();
 
     }
 }

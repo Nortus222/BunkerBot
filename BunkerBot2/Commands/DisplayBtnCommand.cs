@@ -43,27 +43,27 @@ namespace BunkerBot2.Commands
 
             int count = 0;
 
-            InlineKeyboardButton[][] buttons = new InlineKeyboardButton[b][];
+            KeyboardButton[][] buttons = new KeyboardButton[b][];
 
             for (int i = 0; i < b; i++)
             {
                 if (commands.Count % 2 != 0 && i == b - 1)
                 {
-                    buttons[i] = new[] { InlineKeyboardButton.WithCallbackData($"{commands[count].Name}") };
+                    buttons[i] = new[] { new KeyboardButton($"{commands[count].Name}") };
 
                 }
                 else
                 {
 
                     buttons[i] = new[] {
-                        InlineKeyboardButton.WithCallbackData($"{commands[count].Name}"),
-                        InlineKeyboardButton.WithCallbackData($"{commands[count+1].Name}")
+                        new KeyboardButton($"{commands[count].Name}"),
+                        new KeyboardButton($"{commands[count+1].Name}")
                     };
                     count += 2;
                 }
             }
 
-            var keyboard = new Telegram.Bot.Types.ReplyMarkups.InlineKeyboardMarkup(buttons);
+            var keyboard = new Telegram.Bot.Types.ReplyMarkups.ReplyKeyboardMarkup(buttons);
 
             await client.SendTextMessageAsync(user.ChatID, "Choose option", replyMarkup: keyboard);
         }

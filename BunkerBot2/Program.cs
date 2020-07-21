@@ -82,6 +82,7 @@ namespace Bot1
                     break;
                 }
             }
+            // await commands.GetDisplayBtnCommand().Execute(GetBunkerUsers.GetUserById(e.CallbackQuery.From.Id), client);
         }
 
         private static async void BotOnMessageReceived(object sender, MessageEventArgs messageEventArgs)
