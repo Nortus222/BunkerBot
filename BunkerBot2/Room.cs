@@ -18,7 +18,7 @@ namespace BunkerBot2
 
         public BunkerUser Host{get {return host;}}
 
-        private  List<BunkerUser> players = new List<BunkerUser>();
+        public  List<BunkerUser> players = new List<BunkerUser>();
 
         public List<BunkerUser> Players => players;
 
