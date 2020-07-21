@@ -3,6 +3,7 @@ using System;
 using Bot1;
 using BunkerBot2.Service;
 using BunkerBot2.Lists;
+using BunkerBot2.Commands;
 
 namespace BunkerBot2
 {
@@ -60,7 +61,7 @@ namespace BunkerBot2
                 user.IsPlayer = false;
                 Notify($"{user.NickName} left");
             }
-            
+            Program.GetCommands.GetDisplayBtnCommand().Execute(user,Program.client);
         }
 
         public bool AddToRoom(BunkerUser user)
@@ -90,6 +91,10 @@ namespace BunkerBot2
 
         public void ClearRoom()
         {
+            foreach(var player in players)
+            {
+                player.IsPlayer = false;
+            }
             players.Clear();
             host = null;
         }

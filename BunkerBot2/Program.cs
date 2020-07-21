@@ -29,7 +29,7 @@ namespace Bot1
 
         public static BunkerUsersList GetBunkerUsers => bunkerUsers;
 
-        private static TelegramBotClient client;
+        public static TelegramBotClient client;
 
         private static CommandService commands = new CommandService();
 
